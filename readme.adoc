@@ -1,0 +1,23 @@
+= Learning project for lazy viewing files on the sofa )))
+
+== Description
+
+This simple flask project makes it eay to view photos from one your device to all other devices in the house :)
+
+NOTE: This is my local learning project, so it is without any docker wraps and debug mode is present, so it's just for local using (for a while:)
+
+== Installation
+
+. install python 3 and it's pip
+. put the project folder in some dir (e.g. pview)
+. Change dir to pview
+. Install needed libraries with +
+  `python -m pip install -r requirements.txt`
+. Setup photos folder
+  .. Edit app.py and set variable `app_work_dir` as you need. +
+     By default it points to `public_files` subdir of your project
+. Run with `python main.py`
+. View your photos from any device through link +
+  `192.168.x.x:8080/dir` +
+  where `192.168.x.x` - address of device hosted this project
+. Enjoy )))
