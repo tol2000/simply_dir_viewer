@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <title>Directory: {{ dir_path }}</title>
 </head>
 <body>
+<div class="grid">
+  <div class="g-col-6">.g-col-6</div>
+  <div class="g-col-6">.g-col-6</div>
+
+  <div class="g-col-6">.g-col-6</div>
+  <div class="g-col-6">.g-col-6</div>
+</div>
+
     <h{{zoom}}>Directory: {{ dir_path }}</h{{zoom}}>
     <br>
     <h{{zoom}}><a href="{{ root_dir_link }}">Root directory</a></h{{zoom}}>
     <h{{zoom}}><a href="{{ up_dir_link }}">.. Up</a></h{{zoom}}>
 
+    <div class="grid">
     {% for path, url, is_file, img_preview_data in dir_items: %}
     {% if is_file %}
-    <h{{zoom}}><a href="{{ url }}">
-        <img id="picture" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
-    </a></h{{zoom}}>
+    <div class="g-col-6">
+        <h{{zoom}}><a href="{{ url }}">
+            <img id="picture" class="img-thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
+        </a></h{{zoom}}>
+    </div>
     {% else %}
     <h{{zoom}}><a href="{{ url }}">{{ path }}</a></h{{zoom}}>
     {% endif %}
     {% endfor %}
+    </div>
+
+    <script src="/static/js/jquery.slim.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -2,19 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<!--    $enable-grid-classes: false-->
+<!--    $enable-cssgrid: true-->
     <title>Test</title>
 </head>
 <body>
-    <a href="{{ url_for('static', filename='js/jquery.slim.min.js') }}">jquery</a>
-    <a href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">bootstrap</a>
-    <div class="container">
-        <div class="row row-cols-auto123">
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-        </div>
-    </div>
+
+<div class="grid">
+  <div class="g-col-6">.g-col-6</div>
+  <div class="g-col-6">.g-col-6</div>
+
+  <div class="g-col-6">.g-col-6</div>
+  <div class="g-col-6">.g-col-6</div>
+</div>
+
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">
+            <h6>Список товара</h6>
+        </li>
+        <li class="list-group-item list-group-item-primary">
+            <h6>Список товара</h6>
+        </li>
+        <li class="list-group-item list-group-item-primary">
+            <h6>Список товара</h6>
+        </li>
+    </ul>
+
     <script src="/static/js/jquery.slim.min.js"></script>
     <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
