@@ -18,6 +18,13 @@ app_work_dir: Path = (app_dir / Path('public_files')).resolve().absolute()
 app = Flask('photo_v')
 
 
+@app.route(f'/')
+def test():
+    return render_template(
+        'test.html',
+    )
+
+
 def make_url_for_subdir(dir_url, path_for_url):
     return f'{dir_url}?{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(path_for_url), safe="")}'
 
