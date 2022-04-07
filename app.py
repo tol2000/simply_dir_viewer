@@ -101,10 +101,9 @@ def show_dir(cols=2):
         subdir_to_up = ''
     up_dir_link = make_url_for_subdir(dir_url, subdir_to_up)
 
-    # dir_list = sorted(list(dir_name.iterdir()), key=lambda x: (not x.is_dir(), str(x)))
-
     # resolve() - to resolve symlinks
-    dir_list = list(dir_name.resolve().iterdir())
+    dir_list = sorted(list(dir_name.resolve().iterdir()), key=lambda x: (not x.is_dir(), str(x)))
+
     dirs_items = []
     files_items = []
     added_dirs_cols = 0
