@@ -1,23 +1,55 @@
-= Learning project for lazy viewing files on the sofa )))
+= Learning project for lazy viewing files on the sofa :)
 
 == Description
 
-This simple flask project makes it eay to view photos from one your device to all other devices in the house :)
+This simple flask project makes it eay to view photos from one your device to all other devices in the house
 
 NOTE: This is my local learning project, so it is without any docker wraps and debug mode is present, so it's just for local using (for a while:)
 
 == Installation
 
-. Change some host for your project (e.g. `192.168.x.x`)
-. Install python 3 and it's pip
-. Put the project folder in some dir (e.g. pview)
-. Change dir to pview
-. Install needed libraries with +
-  `python -m pip install -r requirements.txt`
-. Setup public folder for photos
-  .. Edit app.py and set variable `PUBLIC_FILES` as you need. +
-     By default it points to `public_files` subdir of your project +
-. Run with `python main.py`
-. Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link: `192.168.x.x:8080/dir/2`
-  .. Where `/2` - number of columns for images and directories grid
-. Enjoy )))
+=== Select host
+
+  Select some host for your project (e.g. `192.168.x.x`)
+
+=== Install python 3 and it's pip
+
+[source, bash]
+----
+sudo dnf install python3
+sudo dnf install python3-pip
+----
+
+=== Install the project to some dir you choose
+
+Create directory, clone the project and install needed libraries
+
+[source, bash]
+----
+cd ~
+mkdir photos_view
+cd photos_view
+git clone https://github.com/tol2000/simply_dir_viewer .
+python -m pip install -r requirements.txt
+----
+
+=== Setup public folder for photos
+
+Edit `app.py` and set constant `PUBLIC_FILES` to dir where you want to view photos
+
+By default it points to `public_files` subdir of your project, so you may create it and put your photos to this dir
+
+=== Run project
+
+[source, bash]
+----
+python main.py
+----
+
+=== View photos from any device
+
+Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link:
+link:http://192.168.x.x:8080/dir/2[]
+
+NOTE: In the link above `/2` - the number of columns for images and directories grid,
+      so you may choose the best one for self

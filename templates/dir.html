@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directory: {{ dir_path }}</title>
+    <style>
+        .dir_table {
+          max-width: 100%;
+        }
+        .dir_table_cell {
+          padding-right: 35px;
+          padding-bottom: 5px;
+          word-break: break-all;
+        }
+        .photo_table_cell {
+          padding: 3px;
+        }
+        .root_item {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+        .up_item {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Directory: {{ dir_path }}</h2>
-    <br>
-    <div><a href="{{ root_dir_link }}">Root directory</a></div>
-    <div><a href="{{ up_dir_link }}">.. Up</a></div>
-    <br>
+    <h3>Directory: {{ dir_path }}</h3>
+    <div class="root_item"><a href="{{ root_dir_link }}">Root directory</a></div>
+    <div class="up_item"><a href="{{ up_dir_link }}">.. Up</a></div>
 
-    <table style="border: 2px solid black;">
+    <table class="dir_table">
     {% for dirs_item in dirs_items: %}
         <tr>
         {% for path, url in dirs_item: %}
-            <th>
+            <th class="dir_table_cell" align="left">
                 <a href="{{ url }}">{{ path }}</a>
             </th>
         {% endfor %}
@@ -31,11 +50,11 @@
     {% for files_item in files_items: %}
         <tr>
         {% for path, url, img_preview_data in files_item: %}
-            <th>
+            <td class="photo_table_cell">
                 <a href="{{ url }}">
                     <img id="picture" class="img-thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
                 </a>
-            </th>
+            </td>
         {% endfor %}
         </tr>
     {% endfor %}

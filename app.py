@@ -11,6 +11,7 @@ PICTURE_PATH_PARAM_NAME = 'picture'
 DIR_ENDPOINT = 'dir'
 PICTURE_ENDPOINT = 'picture'
 PREVIEW_WIDTH = 200
+DIRECTORY_LIST_ONE_COLUMN = False
 
 app_dir: Path = Path(__file__).resolve().absolute().parent
 
@@ -18,13 +19,6 @@ app_dir: Path = Path(__file__).resolve().absolute().parent
 PUBLIC_FILES: Path = (app_dir / Path('public_files')).resolve().absolute()
 
 app = Flask('photo_v')
-
-
-@app.route(f'/')
-def test():
-    return render_template(
-        'test.html',
-    )
 
 
 def make_url_for_subdir(dir_url, path_for_url):
@@ -108,7 +102,9 @@ def show_dir(cols=2):
     up_dir_link = make_url_for_subdir(dir_url, subdir_to_up)
 
     # dir_list = sorted(list(dir_name.iterdir()), key=lambda x: (not x.is_dir(), str(x)))
-    dir_list = list(dir_name.iterdir())
+
+    # resolve() - to resolve symlinks
+    dir_list = list(dir_name.resolve().iterdir())
     dirs_items = []
     files_items = []
     added_dirs_cols = 0
@@ -119,7 +115,7 @@ def show_dir(cols=2):
 
         if path_obj.is_dir():
             url = make_url_for_subdir(dir_url, path_for_url)
-            list2append, added_dirs_cols = where_append_by_cols(dirs_items, added_dirs_cols, cols)
+            list2append, added_dirs_cols = where_append_by_cols(dirs_items, added_dirs_cols, 1 if DIRECTORY_LIST_ONE_COLUMN else cols)
             list2append.append((path_for_display, url))
         elif path_obj.suffix.lower() in ['.jpg', '.jpeg']:
             url = make_picture_url_for_subdir(picture_url, Path(subdir), Path(path_for_display))
