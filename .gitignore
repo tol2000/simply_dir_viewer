@@ -3,13 +3,4 @@
 /__pycache__/
 *.log
 *.pyc
-/public_files/cat2.jpg
-/public_files/cat3.jpg
-/public_files/cat4.jpg
-/public_files/cat5.jpg
-/public_files/cat6.jpg
-/public_files/cat7.jpg
-/public_files/cat8.jpg
-/public_files/cat9.jpg
-/public_files/cat10.jpg
-/public_files/cat11.jpg
+/public_files/*
