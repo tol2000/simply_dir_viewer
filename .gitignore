@@ -3,4 +3,4 @@
 /__pycache__/
 *.log
 *.pyc
-/public_files/*
+/public_files/
