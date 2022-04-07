@@ -11,6 +11,7 @@ PICTURE_PATH_PARAM_NAME = 'picture'
 DIR_ENDPOINT = 'dir'
 PICTURE_ENDPOINT = 'picture'
 PREVIEW_WIDTH = 200
+DEFAULT_COLUMNS = 6
 DIRECTORY_LIST_ONE_COLUMN = False
 
 app_dir: Path = Path(__file__).resolve().absolute().parent
@@ -65,7 +66,7 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
 
 @app.route(f'/{PICTURE_ENDPOINT}/')
 @app.route(f'/{PICTURE_ENDPOINT}/<int:cols>/')
-def show_picture(cols=2):
+def show_picture(cols=DEFAULT_COLUMNS):
     picture_path = request.args.get(f'{PICTURE_PATH_PARAM_NAME}', '', str)
     picture_dir_path = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
     image_name = Path(picture_path).name
@@ -79,9 +80,9 @@ def show_picture(cols=2):
 
 @app.route(f'/{DIR_ENDPOINT}/')
 @app.route(f'/{DIR_ENDPOINT}/<int:cols>/')
-def show_dir(cols=2):
+def show_dir(cols=DEFAULT_COLUMNS):
     """
-    :param cols: 1, 2... - number of columns in images grid (default 2)
+    :param cols: 1, 2... - number of columns in images grid (default: DEFAULT_COLUMNS)
     :return:
     """
     subdir = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)

@@ -29,15 +29,16 @@ Create directory, clone the project and install needed libraries
 cd ~
 mkdir photos_view
 cd photos_view
+mkdir public_files
 git clone https://github.com/tol2000/simply_dir_viewer .
 python -m pip install -r requirements.txt
 ----
 
-=== Setup public folder for photos
+=== Public folder for photos
 
-Edit `app.py` and set constant `PUBLIC_FILES` to dir where you want to view photos
+By default you will see all photos from `public_files` subdir of your project (you just created it above). +
 
-By default it points to `public_files` subdir of your project, so you may create it and put your photos to this dir
+If you want, you may set another folder in `app.py` in constant `PUBLIC_FILES`
 
 === Run project
 
@@ -49,7 +50,8 @@ python main.py
 === View photos from any device
 
 Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link:
-link:http://192.168.x.x:8080/dir/2[]
+link:http://192.168.x.x:8080/dir/6[]
 
-NOTE: In the link above `/2` - the number of columns for images and directories grid,
-      so you may choose the best one for self
+NOTE: In the link above `/6` - the number of columns for images and directories grid,
+      so you may choose the best one for self. +
+      If you omit `/6` then default value will be used
