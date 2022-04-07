@@ -8,16 +8,16 @@ NOTE: This is my local learning project, so it is without any docker wraps and d
 
 == Installation
 
-. install python 3 and it's pip
-. put the project folder in some dir (e.g. pview)
+. Change some host for your project (e.g. `192.168.x.x`)
+. Install python 3 and it's pip
+. Put the project folder in some dir (e.g. pview)
 . Change dir to pview
 . Install needed libraries with +
   `python -m pip install -r requirements.txt`
-. Setup photos folder
-  .. Edit app.py and set variable `app_work_dir` as you need. +
-     By default it points to `public_files` subdir of your project
+. Setup public folder for photos
+  .. Edit app.py and set variable `PUBLIC_FILES` as you need. +
+     By default it points to `public_files` subdir of your project +
 . Run with `python main.py`
-. View your photos from any device through link +
-  `192.168.x.x:8080/dir` +
-  where `192.168.x.x` - address of device hosted this project
+. Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link: `192.168.x.x:8080/dir/2`
+  .. Where `/2` - number of columns for images and directories grid
 . Enjoy )))

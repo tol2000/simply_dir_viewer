@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image</title>
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100vh;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-    <!--    <h{{zoom}}></h{{zoom}}>-->
-    <a href="{{ img_subdir_link }}">.. (up picture's dir)</a> {{image_name}}
-    <a href="{{ img_subdir_link }}">
-        <img id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="100%">
+    <a href="javascript:history.back()">
+        <img id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
     </a>
+    <br>
+    <a href="{{ img_subdir_link }}">.. (up picture's dir)</a> {{image_name}}
 </body>
 </html>

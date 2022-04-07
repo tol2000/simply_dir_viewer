@@ -3,39 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <title>Directory: {{ dir_path }}</title>
 </head>
 <body>
-<div class="grid">
-  <div class="g-col-6">.g-col-6</div>
-  <div class="g-col-6">.g-col-6</div>
 
-  <div class="g-col-6">.g-col-6</div>
-  <div class="g-col-6">.g-col-6</div>
-</div>
-
-    <h{{zoom}}>Directory: {{ dir_path }}</h{{zoom}}>
+    <h2>Directory: {{ dir_path }}</h2>
     <br>
-    <h{{zoom}}><a href="{{ root_dir_link }}">Root directory</a></h{{zoom}}>
-    <h{{zoom}}><a href="{{ up_dir_link }}">.. Up</a></h{{zoom}}>
+    <div><a href="{{ root_dir_link }}">Root directory</a></div>
+    <div><a href="{{ up_dir_link }}">.. Up</a></div>
+    <br>
 
-    <div class="grid">
-    {% for path, url, is_file, img_preview_data in dir_items: %}
-    {% if is_file %}
-    <div class="g-col-6">
-        <h{{zoom}}><a href="{{ url }}">
-            <img id="picture" class="img-thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
-        </a></h{{zoom}}>
-    </div>
-    {% else %}
-    <h{{zoom}}><a href="{{ url }}">{{ path }}</a></h{{zoom}}>
-    {% endif %}
+    <table style="border: 2px solid black;">
+    {% for dirs_item in dirs_items: %}
+        <tr>
+        {% for path, url in dirs_item: %}
+            <th>
+                <a href="{{ url }}">{{ path }}</a>
+            </th>
+        {% endfor %}
+        </tr>
     {% endfor %}
-    </div>
+    </table>
 
-    <script src="/static/js/jquery.slim.min.js"></script>
-    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <br>
+
+    <table>
+    {% for files_item in files_items: %}
+        <tr>
+        {% for path, url, img_preview_data in files_item: %}
+            <th>
+                <a href="{{ url }}">
+                    <img id="picture" class="img-thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
+                </a>
+            </th>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+
 </body>
 </html>
