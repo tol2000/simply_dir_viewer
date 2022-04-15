@@ -49,7 +49,7 @@ python simply_dir_viewer.py
 
 === View photos from any device
 
-Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link:
+Enjoy by view all your photos in `public_files` from any device by following link:
 link:http://192.168.x.x:8080[]
 
 NOTE: Index page consist of a few links for variety qnty of columns. +
