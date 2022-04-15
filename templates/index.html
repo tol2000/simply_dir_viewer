@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block body %}
+    <h3>Hello from simply dir viewer</h3>
+    {% for i in range(1, 16) %}
+    <p><a class="dir_link" href="{{dir_photos_url}}/{{i}}">View photos in directory ({{i}} column(s))</a></p>
+    {% endfor %}
+{% endblock %}

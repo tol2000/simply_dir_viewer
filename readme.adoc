@@ -36,22 +36,21 @@ python -m pip install -r requirements.txt
 
 === Public folder for photos
 
-By default you will see all photos from `public_files` subdir of your project (you just created it above). +
+By default you will see all photos from `public_files` subdir of your project (you just created it above).
 
-If you want, you may set another folder in `app.py` in constant `PUBLIC_FILES`
+If you want, you may set another folder in environment variable `SIMPLY_DIR_VIEWER_PUBLIC_FILES`
 
 === Run project
 
 [source, bash]
 ----
-python main.py
+python simply_dir_viewer.py
 ----
 
 === View photos from any device
 
 Enjoy by view all your photos in `PUBLIC_FILES` from any device by following link:
-link:http://192.168.x.x:8080/dir/6[]
+link:http://192.168.x.x:8080[]
 
-NOTE: In the link above `/6` - the number of columns for images and directories grid,
-      so you may choose the best one for self. +
-      If you omit `/6` then default value will be used
+NOTE: Index page consist of a few links for variety qnty of columns. +
+      You may explore this links and set your own number of columns if you want :)

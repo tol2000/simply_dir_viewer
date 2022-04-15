@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Image
+{% endblock %}
+
+{% block body %}
+    <a href="javascript:history.back()">
+        <img id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
+    </a>
+    <br>
+    <p><a href="{{ img_subdir_link }}">.. (up to picture's dir)</a> {{image_name}}</p>
+{% endblock %}

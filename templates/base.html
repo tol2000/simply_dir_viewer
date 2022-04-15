@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Base title
+        {% endblock %}
+    </title>
+    <style>
+        .dir_table {
+          max-width: 100%;
+        }
+        .dir_table_cell {
+          padding-right: 35px;
+          padding-bottom: 5px;
+          word-break: break-all;
+        }
+        .photo_table_cell {
+          padding: 3px;
+        }
+        .root_item {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+        .up_item {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+        .dir_link {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+        .home_link {
+          font-weight: bold;
+          padding-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100vh;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    {% block body %}
+    Base body
+    {% endblock %}
+    <p><a class="home_link" href="{{ url_for('index') }}">Home</a></p>
+</body>
+</html>
