@@ -30,7 +30,7 @@ cd ~
 mkdir photos_view
 cd photos_view
 mkdir public_files
-git clone https://github.com/tol2000/simply_dir_viewer .
+git clone git@github.com:tol2000/simply_dir_viewer.git .
 python -m pip install -r requirements.txt
 ----
 
