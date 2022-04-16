@@ -6,8 +6,9 @@ Image
 
 {% block body %}
     <a href="javascript:history.back()">
-        <img id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
+        <img class="{{image_class}}" id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
     </a>
     <br>
+    <p><a href="{{ url_for(request.endpoint, **request.view_args)[:-1] + '?' + request.query_string.decode()}}&zoom=full">Zoom full size</a></p>
     <p><a href="{{ img_subdir_link }}">.. (up to picture's dir)</a> {{image_name}}</p>
 {% endblock %}

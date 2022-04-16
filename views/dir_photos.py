@@ -14,6 +14,7 @@ app_dir_photos = Blueprint('dir_photos_app', __name__, url_prefix='/dirpic')
 
 SUBDIR_PARAM_NAME = 'subdir'
 PICTURE_PATH_PARAM_NAME = 'picture'
+ZOOM_PARAM_NAME = 'zoom'
 PICTURE_ENDPOINT = 'picture'
 PREVIEW_WIDTH = 200
 DEFAULT_COLUMNS = 6
@@ -73,12 +74,14 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
 def show_picture(cols=DEFAULT_COLUMNS):
     picture_path = request.args.get(f'{PICTURE_PATH_PARAM_NAME}', '', str)
     picture_dir_path = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
+    zoom = request.args.get(f'{ZOOM_PARAM_NAME}', '', str)
     image_name = Path(picture_path).name
     return render_template(
         app_dir_photos.url_prefix + '/picture.html',
         img_data=get_image_data_for_html(PUBLIC_FILES / Path(picture_path)),
         img_subdir_link=make_url_for_subdir(picture_dir_path, cols),
         image_name=image_name,
+        image_class='img_fullsize' if zoom == 'full' else 'img',
     )
 
 
