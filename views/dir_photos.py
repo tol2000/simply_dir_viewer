@@ -59,12 +59,8 @@ def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
 
 
 @lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
-def get_image_data(image_path: Path):
-    return Image.open(image_path)
-
-
 def get_image_data_for_html(image_path: Path, preview_width=None):
-    im: Image = get_image_data(image_path)
+    im: Image = Image.open(image_path)
     if preview_width:
         im.thumbnail(preview_width, Image.ANTIALIAS)
     data = io.BytesIO()
