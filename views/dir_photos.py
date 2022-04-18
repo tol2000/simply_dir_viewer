@@ -70,7 +70,10 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
     exif_raw = im.getexif()
     exif = {}
     for tag_id in exif_raw:
-        exif[TAGS.get(tag_id, tag_id)] = exif_raw.get(tag_id)
+        key = TAGS.get(tag_id, tag_id)
+        value = exif_raw.get(tag_id)
+        if type(value) not in (bytes,):
+            exif[key] = value
     return encoded_img_data.decode('utf-8'), exif
 
 
