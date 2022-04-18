@@ -1,7 +1,6 @@
 import sys
 from functools import lru_cache
 import urllib.parse
-
 import flask
 from flask import request, render_template, Blueprint
 from PIL import Image
@@ -18,6 +17,7 @@ ZOOM_PARAM_NAME = 'zoom'
 PICTURE_ENDPOINT = 'picture'
 PREVIEW_WIDTH = 200
 DEFAULT_COLUMNS = 6
+IMAGES_LRU_CACHE_MAX_SIZE = 256
 DIRECTORY_LIST_ONE_COLUMN = False
 # Dir with photos to display
 PATH_ENV = os.getenv('SIMPLY_DIR_VIEWER_PUBLIC_FILES')
@@ -58,9 +58,13 @@ def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
     return loc_list2append, added_cols
 
 
-@lru_cache(maxsize=256)
+@lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
+def get_image_data(image_path: Path):
+    return Image.open(image_path)
+
+
 def get_image_data_for_html(image_path: Path, preview_width=None):
-    im: Image = Image.open(image_path)
+    im: Image = get_image_data(image_path)
     if preview_width:
         im.thumbnail(preview_width, Image.ANTIALIAS)
     data = io.BytesIO()
@@ -76,9 +80,10 @@ def show_picture(cols=DEFAULT_COLUMNS):
     picture_dir_path = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
     zoom = request.args.get(f'{ZOOM_PARAM_NAME}', '', str)
     image_name = Path(picture_path).name
+    img_data = get_image_data_for_html(PUBLIC_FILES / Path(picture_path))
     return render_template(
         app_dir_photos.url_prefix + '/picture.html',
-        img_data=get_image_data_for_html(PUBLIC_FILES / Path(picture_path)),
+        img_data=img_data,
         img_subdir_link=make_url_for_subdir(picture_dir_path, cols),
         image_name=image_name,
         image_class='img_fullsize' if zoom == 'full' else 'img',
