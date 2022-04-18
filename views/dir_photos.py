@@ -1,14 +1,13 @@
 import sys
 from functools import lru_cache
 import urllib.parse
-import flask
-from PIL.ExifTags import TAGS
-from flask import request, render_template, Blueprint
+from flask import request, render_template, Blueprint, url_for
 from PIL import Image
 import base64
 import io
 import os
 from pathlib import Path
+from . import exif_util
 
 app_dir_photos = Blueprint('dir_photos_app', __name__, url_prefix='/dirpic')
 
@@ -27,13 +26,13 @@ PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
 
 
 def make_url_for_subdir(path_for_url, cols):
-    return f'{flask.url_for("dir_photos_app.show_dir")}{cols}?' \
+    return f'{url_for("dir_photos_app.show_dir")}{cols}?' \
            f'{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(path_for_url), safe="")}'
 
 
 def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path, cols):
     picture_path = str(Path(picture_subdir) / Path(picture_name))
-    url = f'{flask.url_for("dir_photos_app.show_picture")}{cols}?'
+    url = f'{url_for("dir_photos_app.show_picture")}{cols}?'
     url += f'{PICTURE_PATH_PARAM_NAME}={urllib.parse.quote(picture_path, safe="")}'
     url += f'&{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(picture_subdir), safe="")}'
     return url
@@ -62,18 +61,14 @@ def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
 @lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
 def get_image_data_for_html(image_path: Path, preview_width=None):
     im: Image = Image.open(image_path)
+    exif = exif_util.extract_exif_tags(im)
+
     if preview_width:
         im.thumbnail(preview_width, Image.ANTIALIAS)
+
     data = io.BytesIO()
     im.save(data, "JPEG")
     encoded_img_data = base64.b64encode(data.getvalue())
-    exif_raw = im.getexif()
-    exif = {}
-    for tag_id in exif_raw:
-        key = TAGS.get(tag_id, tag_id)
-        value = exif_raw.get(tag_id)
-        if type(value) not in (bytes,):
-            exif[key] = value
     return encoded_img_data.decode('utf-8'), exif
 
 
