@@ -2,6 +2,7 @@ import sys
 from functools import lru_cache
 import urllib.parse
 import flask
+from PIL.ExifTags import TAGS
 from flask import request, render_template, Blueprint
 from PIL import Image
 import base64
@@ -66,7 +67,11 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
     data = io.BytesIO()
     im.save(data, "JPEG")
     encoded_img_data = base64.b64encode(data.getvalue())
-    return encoded_img_data.decode('utf-8')
+    exif_raw = im.getexif()
+    exif = {}
+    for tag_id in exif_raw:
+        exif[TAGS.get(tag_id, tag_id)] = exif_raw.get(tag_id)
+    return encoded_img_data.decode('utf-8'), exif
 
 
 @app_dir_photos.route(f'/picture/')
@@ -76,13 +81,14 @@ def show_picture(cols=DEFAULT_COLUMNS):
     picture_dir_path = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
     zoom = request.args.get(f'{ZOOM_PARAM_NAME}', '', str)
     image_name = Path(picture_path).name
-    img_data = get_image_data_for_html(PUBLIC_FILES / Path(picture_path))
+    img_data, exif = get_image_data_for_html(PUBLIC_FILES / Path(picture_path))
     return render_template(
         app_dir_photos.url_prefix + '/picture.html',
         img_data=img_data,
         img_subdir_link=make_url_for_subdir(picture_dir_path, cols),
         image_name=image_name,
         image_class='img_fullsize' if zoom == 'full' else 'img',
+        exif=exif,
     )
 
 
@@ -127,7 +133,7 @@ def show_dir(cols=DEFAULT_COLUMNS):
             list2append.append((path_for_display, url))
         elif path_obj.suffix.lower() in ['.jpg', '.jpeg']:
             url = make_picture_url_for_subdir(Path(subdir), Path(path_for_display), cols)
-            preview_data = get_image_data_for_html(path_obj, (PREVIEW_WIDTH, PREVIEW_WIDTH))
+            preview_data, exif = get_image_data_for_html(path_obj, (PREVIEW_WIDTH, PREVIEW_WIDTH))
             list2append, added_files_cols = where_append_by_cols(files_items, added_files_cols, cols)
             list2append.append((path_for_display, url, preview_data))
 

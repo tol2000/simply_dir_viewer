@@ -11,4 +11,18 @@ Image
     <br>
     <p><a href="{{ url_for(request.endpoint, **request.view_args)[:-1] + '?' + request.query_string.decode()}}&zoom=full">Zoom full size</a></p>
     <p><a href="{{ img_subdir_link }}">.. (up to picture's dir)</a> {{image_name}}</p>
+    <div>
+        <table class="exif_table">
+        {% for key, value in exif.items() %}
+            <tr>
+                <td class="exif_table_cell" align="left">
+                    {{ key }}
+                </td>
+                <td class="exif_table_cell" align="left">
+                    {{ value }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 {% endblock %}

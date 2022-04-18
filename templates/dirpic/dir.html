@@ -13,9 +13,9 @@ Directory: {{ dir_path }}
     {% for dirs_item in dirs_items: %}
         <tr>
         {% for path, url in dirs_item: %}
-            <th class="dir_table_cell" align="left">
+            <td class="dir_table_cell" align="left">
                 <a href="{{ url }}">{{ path }}</a>
-            </th>
+            </td>
         {% endfor %}
         </tr>
     {% endfor %}
