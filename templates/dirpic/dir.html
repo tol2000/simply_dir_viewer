@@ -4,6 +4,9 @@
 Directory: {{ dir_path }}
 {% endblock %}
 
+{% block add_style %}
+{% endblock %}
+
 {% block body %}
     <h3>Directory: {{ dir_path }}</h3>
     <div class="root_item"><a href="{{ root_dir_link }}">Root directory</a></div>
@@ -29,7 +32,7 @@ Directory: {{ dir_path }}
         {% for path, url, img_preview_data in files_item: %}
             <td class="photo_table_cell">
                 <a href="{{ url }}">
-                    <img id="picture" class="img-thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
+                    <img id="picture" class="img_thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="{{ path }}">
                 </a>
             </td>
         {% endfor %}

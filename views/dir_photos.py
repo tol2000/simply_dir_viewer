@@ -85,7 +85,7 @@ def show_picture(cols=DEFAULT_COLUMNS):
         img_data=img_data,
         img_subdir_link=make_url_for_subdir(picture_dir_path, cols),
         image_name=image_name,
-        image_class='img_fullsize' if zoom == 'full' else 'img',
+        image_class='img_fullsize' if zoom == 'full' else 'img_fit2',
         exif=exif,
     )
 
