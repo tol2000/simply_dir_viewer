@@ -1,6 +1,5 @@
 import sys
 from functools import lru_cache
-import urllib.parse
 from flask import request, render_template, Blueprint, url_for
 from PIL import Image
 import base64
@@ -26,16 +25,19 @@ PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
 
 
 def make_url_for_subdir(path_for_url, cols):
-    return f'{url_for(app_dir_photos.name+".show_dir", cols=cols)}?' \
-           f'{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(path_for_url), safe="")}'
+    query_args = {
+        SUBDIR_PARAM_NAME: str(path_for_url)
+    }
+    return url_for(app_dir_photos.name+".show_dir", cols=cols, **query_args)
 
 
 def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path, cols):
     picture_path = str(Path(picture_subdir) / Path(picture_name))
-    url = f'{url_for(app_dir_photos.name+".show_picture", cols=cols)}?'
-    url += f'{PICTURE_PATH_PARAM_NAME}={urllib.parse.quote(picture_path, safe="")}'
-    url += f'&{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(picture_subdir), safe="")}'
-    return url
+    query_args = {
+        PICTURE_PATH_PARAM_NAME: picture_path,
+        SUBDIR_PARAM_NAME: str(picture_subdir),
+    }
+    return url_for(app_dir_photos.name+".show_picture", cols=cols, **query_args)
 
 
 def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
@@ -128,7 +130,7 @@ def show_dir(cols=DEFAULT_COLUMNS):
                 dirs_items, added_dirs_cols, 1 if DIRECTORY_LIST_ONE_COLUMN else cols
             )
             list2append.append((path_for_display, url))
-        elif path_obj.suffix.lower() in ['.jpg', '.jpeg']:
+        elif path_obj.suffix.lower() in ['.jpg', '.jpeg', '.png']:
             url = make_picture_url_for_subdir(Path(subdir), Path(path_for_display), cols)
             preview_data, exif = get_image_data_for_html(path_obj, (PREVIEW_WIDTH, PREVIEW_WIDTH))
             list2append, added_files_cols = where_append_by_cols(files_items, added_files_cols, cols)

@@ -5,6 +5,7 @@
     padding-right: 35px;
     padding-bottom: 5px;
     word-break: break-all;
+    font-weight: bold;
 }
 .photo_table_cell {
     padding: 10px;
@@ -14,10 +15,6 @@
     padding-bottom: 10px;
 }
 .up_item {
-    font-weight: bold;
-    padding-bottom: 10px;
-}
-.dir_link {
     font-weight: bold;
     padding-bottom: 10px;
 }
