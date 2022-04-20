@@ -61,16 +61,19 @@ def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
 
 @lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
 def get_image_data_for_html(image_path: Path, preview_width=None):
-    im: Image = Image.open(image_path)
-    exif = exif_util.extract_exif_tags(im)
+    try:
+        im: Image = Image.open(image_path)
+        exif = exif_util.extract_exif_tags(im)
 
-    if preview_width:
-        im.thumbnail(preview_width, Image.ANTIALIAS)
+        if preview_width:
+            im.thumbnail(preview_width, Image.ANTIALIAS)
 
-    data = io.BytesIO()
-    im.save(data, "JPEG")
-    encoded_img_data = base64.b64encode(data.getvalue())
-    return encoded_img_data.decode('utf-8'), exif
+        data = io.BytesIO()
+        im.save(data, "JPEG")
+        encoded_img_data = base64.b64encode(data.getvalue()).decode('utf-8')
+    except Exception:
+        encoded_img_data = None
+    return encoded_img_data, exif
 
 
 @app_dir_photos.route(f'/picture/')
