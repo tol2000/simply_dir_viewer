@@ -1,0 +1,55 @@
+.dir_table {
+    max-width: 100%;
+}
+.dir_table_cell {
+    padding-right: 35px;
+    padding-bottom: 5px;
+    word-break: break-all;
+}
+.photo_table_cell {
+    padding: 10px;
+}
+.root_item {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.up_item {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.dir_link {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.home_link {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.img_fit2 {
+    max-width: 100%;
+    max-height: 100vh;
+    display: block;
+    margin-top: 0;
+    margin-left: 0;
+}
+.img_fullsize {
+    max-width: none;
+    max-height: none;
+    display: block;
+    margin-top: 0;
+    margin-left: 0;
+}
+.img_thumbnail {
+    max-width: none;
+    max-height: none;
+    margin: auto;
+}
+.exif_table {
+    max-width: 100%;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+.exif_table_cell {
+    border: 1px solid;
+    padding: 5px;
+}
