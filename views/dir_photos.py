@@ -26,13 +26,13 @@ PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
 
 
 def make_url_for_subdir(path_for_url, cols):
-    return f'{url_for("dir_photos_app.show_dir")}{cols}?' \
+    return f'{url_for(app_dir_photos.name+".show_dir", cols=cols)}?' \
            f'{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(path_for_url), safe="")}'
 
 
 def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path, cols):
     picture_path = str(Path(picture_subdir) / Path(picture_name))
-    url = f'{url_for("dir_photos_app.show_picture")}{cols}?'
+    url = f'{url_for(app_dir_photos.name+".show_picture", cols=cols)}?'
     url += f'{PICTURE_PATH_PARAM_NAME}={urllib.parse.quote(picture_path, safe="")}'
     url += f'&{SUBDIR_PARAM_NAME}={urllib.parse.quote(str(picture_subdir), safe="")}'
     return url
@@ -40,7 +40,6 @@ def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path, cols):
 
 def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
     """
-
     :param list_items:
     :param added_cols:
     :param max_cols:
