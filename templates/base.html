@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {# <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"> #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <style>
         {% block add_style %}
@@ -17,10 +17,12 @@
     </title>
 </head>
 <body>
-    {% block body %}
-    Base body
-    {% endblock %}
-    {# <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> #}
-    <p><a class="home_link" href="{{ url_for('index') }}">Home</a></p>
+    <div class="container-fluid">
+        {% block body %}
+        Base body
+        {% endblock %}
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <p><a class="home_link" href="{{ url_for('index') }}">Home</a></p>
+    </div>
 </body>
 </html>
