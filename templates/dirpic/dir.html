@@ -8,37 +8,35 @@ Directory: {{ dir_path }}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <h4 style="margin-top: 10px;">Directory: {{ dir_path }}</h4>
-        <div class="root_item"><a href="{{ root_dir_link }}">Root directory</a></div>
-        <div class="up_item"><a href="{{ up_dir_link }}">.. Up</a></div>
-
-        <table class="dir_table">
-        {% for dirs_item in dirs_items: %}
-            <tr>
-            {% for path, url in dirs_item: %}
-                <td class="dir_table_cell" align="left">
-                    <a href="{{ url }}">{{ path }}</a>
-                </td>
-            {% endfor %}
-            </tr>
-        {% endfor %}
-        </table>
-
+    <div class="container-fluid" style="padding-bottom: 10px;">
+        <h4 style="margin-top: 10px; margin-bottom: 10px;">Directory: {{ dir_path }}</h4>
+        <a href="{{ root_dir_link }}" style="text-decoration: none;">
+            <p class="badge bg-primary text-wrap" style="font-size: 0.9em; padding: 7px;">
+                Root directory
+            </p>
+        </a>
+        <br>
+        <a href="{{ up_dir_link }}" style="text-decoration: none;">
+            <p class="badge bg-primary text-wrap" style="font-size: 0.9em; padding: 7px;">
+                .. Up
+            </p>
+        </a>
         <br>
 
-        <table>
-        {% for files_item in files_items: %}
-            <tr>
-            {% for path, url, img_preview_data in files_item: %}
-                <td class="photo_table_cell">
-                    <a href="{{ url }}">
-                        <img id="picture" class="img_thumbnail" src="data:image/jpeg;base64,{{ img_preview_data }}" alt="Display error">
-                    </a>
-                </td>
-            {% endfor %}
-            </tr>
+        {% for path, url in dirs_items: %}
+            <a href="{{ url }}" style="text-decoration: none;">
+                <p class="badge bg-secondary text-wrap" style="font-size: 0.9em; padding: 7px; margin-right: 10px;">
+                    {{ path }}
+                </p>
+            </a>
         {% endfor %}
-        </table>
+    </div>
+
+    <div class="container-fluid" style="padding-top: 15px;">
+        {% for path, url, img_preview_data in files_items: %}
+            <a href="{{ url }}" style="text-decoration: none;">
+                <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
+            </a>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -24,43 +24,25 @@ PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
     else (Path(sys.argv[0]).resolve().absolute().parent / Path('public_files')).resolve().absolute()
 
 
-def make_url_for_subdir(path_for_url, cols):
+def make_url_for_subdir(path_for_url):
     query_args = {
         SUBDIR_PARAM_NAME: str(path_for_url)
     }
-    return url_for(app_dir_photos.name+".show_dir", cols=cols, **query_args)
+    return url_for(app_dir_photos.name+".show_dir", **query_args)
 
 
-def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path, cols):
+def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path):
     picture_path = str(Path(picture_subdir) / Path(picture_name))
     query_args = {
         PICTURE_PATH_PARAM_NAME: picture_path,
         SUBDIR_PARAM_NAME: str(picture_subdir),
     }
-    return url_for(app_dir_photos.name+".show_picture", cols=cols, **query_args)
-
-
-def where_append_by_cols(list_items: list, added_cols: int, max_cols: int):
-    """
-    :param list_items:
-    :param added_cols:
-    :param max_cols:
-    :return: (
-                 new added or last element of list_items counted by added_cols,
-                 new calculated added_cols
-             )
-    """
-    if added_cols == 0:
-        loc_list2append = []
-        list_items.append(loc_list2append)
-    else:
-        loc_list2append = list_items[-1]
-    added_cols = added_cols + 1 if added_cols < max_cols - 1 else 0
-    return loc_list2append, added_cols
+    return url_for(app_dir_photos.name+".show_picture", **query_args)
 
 
 @lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
 def get_image_data_for_html(image_path: Path, preview_width=None):
+    exif = None
     try:
         im: Image = Image.open(image_path)
         exif = exif_util.extract_exif_tags(im)
@@ -77,8 +59,7 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
 
 
 @app_dir_photos.route(f'/picture/')
-@app_dir_photos.route(f'/picture/<int:cols>/')
-def show_picture(cols=DEFAULT_COLUMNS):
+def show_picture():
     picture_path = request.args.get(f'{PICTURE_PATH_PARAM_NAME}', '', str)
     picture_dir_path = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
     zoom = request.args.get(f'{ZOOM_PARAM_NAME}', '', str)
@@ -87,7 +68,7 @@ def show_picture(cols=DEFAULT_COLUMNS):
     return render_template(
         app_dir_photos.url_prefix + '/picture.html',
         img_data=img_data,
-        img_subdir_link=make_url_for_subdir(picture_dir_path, cols),
+        img_subdir_link=make_url_for_subdir(picture_dir_path),
         image_name=image_name,
         image_class='img_fullsize' if zoom == 'full' else 'img_fit2',
         exif=exif,
@@ -95,12 +76,7 @@ def show_picture(cols=DEFAULT_COLUMNS):
 
 
 @app_dir_photos.route('/')
-@app_dir_photos.route('/<int:cols>/')
-def show_dir(cols=DEFAULT_COLUMNS):
-    """
-    :param cols: 1, 2... - number of columns in images grid (default: DEFAULT_COLUMNS)
-    :return:
-    """
+def show_dir():
     subdir = request.args.get(f'{SUBDIR_PARAM_NAME}', '', str)
     dir_name = (PUBLIC_FILES / subdir).resolve().absolute()
 
@@ -114,35 +90,30 @@ def show_dir(cols=DEFAULT_COLUMNS):
         subdir_to_up = str(dir_name.parent)[len(str(PUBLIC_FILES)) + 1:]
     else:
         subdir_to_up = ''
-    up_dir_link = make_url_for_subdir(subdir_to_up, cols)
+    up_dir_link = make_url_for_subdir(subdir_to_up)
 
     # resolve() - to resolve symlinks
     dir_list = sorted(list(dir_name.resolve().iterdir()), key=lambda x: (not x.is_dir(), str(x)))
 
     dirs_items = []
     files_items = []
-    added_dirs_cols = 0
-    added_files_cols = 0
+
     for path_obj in dir_list:
         path_for_url = path_obj.relative_to(PUBLIC_FILES)
         path_for_display = path_obj.relative_to(dir_name)
 
         if path_obj.is_dir():
-            url = make_url_for_subdir(path_for_url, cols)
-            list2append, added_dirs_cols = where_append_by_cols(
-                dirs_items, added_dirs_cols, 1 if DIRECTORY_LIST_ONE_COLUMN else cols
-            )
-            list2append.append((path_for_display, url))
+            url = make_url_for_subdir(path_for_url)
+            dirs_items.append((path_for_display, url))
         elif path_obj.suffix.lower() in ['.jpg', '.jpeg', '.png']:
-            url = make_picture_url_for_subdir(Path(subdir), Path(path_for_display), cols)
+            url = make_picture_url_for_subdir(Path(subdir), Path(path_for_display))
             preview_data, exif = get_image_data_for_html(path_obj, (PREVIEW_WIDTH, PREVIEW_WIDTH))
-            list2append, added_files_cols = where_append_by_cols(files_items, added_files_cols, cols)
-            list2append.append((path_for_display, url, preview_data))
+            files_items.append((path_for_display, url, preview_data))
 
     return render_template(
         app_dir_photos.url_prefix + '/dir.html',
         dir_path=subdir if subdir else "root",
-        root_dir_link=make_url_for_subdir('', cols),
+        root_dir_link=make_url_for_subdir(''),
         up_dir_link=up_dir_link,
         dirs_items=dirs_items,
         files_items=files_items,

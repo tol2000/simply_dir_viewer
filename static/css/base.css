@@ -6,6 +6,10 @@
     padding-bottom: 5px;
     word-break: break-all;
     font-weight: bold;
+    vertical-align: middle;
+    min-width: 100px !important;
+    max-width: 300px !important;
+    display: inline-block !important;
 }
 .photo_table_cell {
     padding: 10px;
