@@ -8,12 +8,12 @@ Image
 {% endblock %}
 
 {% block body %}
-    <a href="javascript:history.back()">
-        <img class="{{image_class}} id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
-    </a>
-    <br>
+    {#<a href="javascript:history.back()">
+        <img class="{{image_class}}" id="picture1" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
+    </a>#}
+    <img class="{{image_class}}" id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
+    <p><a href="{{ img_subdir_link }}">(up .. to picture's dir)</a> {{image_name.lower()}}</p>
     <p><a href="{{ url_for(request.endpoint, **request.view_args)[:-1] + '?' + request.query_string.decode()}}&zoom=full">Zoom full size</a></p>
-    <p><a href="{{ img_subdir_link }}">.. (up to picture's dir)</a> {{image_name}}</p>
     <div>
         <table class="exif_table">
         {% for key, value in exif.items() %}
@@ -28,4 +28,21 @@ Image
         {% endfor %}
         </table>
     </div>
+{% endblock %}
+
+{% block after_body_contents %}
+    <script>
+        var pic = document.getElementById('picture')
+        pic.addEventListener('click', function (event) {
+            event.preventDefault()
+            if (pic.style.maxHeight == '100vh' || !pic.style.maxHeight) {
+                pic.style.maxHeight = 'none'
+                pic.style.maxWidth = 'none'
+            } else {
+                pic.style.maxHeight = '100vh'
+                pic.style.maxWidth = '100%'
+                window.scrollTo({top:0, left:0, behavior:'instant'})
+            }
+        })
+    </script>
 {% endblock %}
