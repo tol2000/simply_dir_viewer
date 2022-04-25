@@ -8,7 +8,7 @@ Directory: {{ dir_path }}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid" style="padding-bottom: 10px;">
+    <div class="container-fluid">
         <h4 style="margin-top: 10px; margin-bottom: 10px;">Directory: {{ dir_path }}</h4>
         <a href="{{ root_dir_link }}" style="text-decoration: none;">
             <p class="badge bg-primary text-wrap" style="font-size: 0.9em; padding: 7px;">
@@ -32,7 +32,7 @@ Directory: {{ dir_path }}
         {% endfor %}
     </div>
 
-    <div class="container-fluid" style="padding-top: 15px;">
+    <div class="container-fluid" style="padding-top: 12px;">
         {% for path, url, img_preview_data in files_items: %}
             <a href="{{ url }}" style="text-decoration: none;">
                 <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
