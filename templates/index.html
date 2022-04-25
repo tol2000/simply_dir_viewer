@@ -10,9 +10,7 @@ Index
         <li>
             <h3>View photos in dir</h3>
             <ul>
-                {% for i in range(1, 16) %}
-                <li><p><a class="dir_link" href="{{dir_photos_url}}/{{i}}">{{i}} column(s)</a></p></li>
-                {% endfor %}
+                <li><p><a class="dir_link" href="{{url_for('dir_photos_app.show_dir')}}">Show directory</a></p></li>
             </ul>
         </li>
         <li>

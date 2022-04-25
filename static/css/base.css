@@ -1,27 +1,3 @@
-.dir_table {
-    max-width: 100%;
-}
-.dir_table_cell {
-    padding-right: 35px;
-    padding-bottom: 5px;
-    word-break: break-all;
-    font-weight: bold;
-    vertical-align: middle;
-    min-width: 100px !important;
-    max-width: 300px !important;
-    display: inline-block !important;
-}
-.photo_table_cell {
-    padding: 10px;
-}
-.root_item {
-    font-weight: bold;
-    padding-bottom: 10px;
-}
-.up_item {
-    font-weight: bold;
-    padding-bottom: 10px;
-}
 .home_link {
     font-weight: bold;
     padding-bottom: 10px;
@@ -39,11 +15,6 @@
     display: block;
     margin-top: 0;
     margin-left: 0;
-}
-.img_thumbnail {
-    max-width: none;
-    max-height: none;
-    margin: auto;
 }
 .exif_table {
     max-width: 100%;
