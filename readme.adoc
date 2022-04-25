@@ -52,5 +52,3 @@ python simply_dir_viewer.py
 Enjoy by view all your photos in `public_files` from any device by following link:
 link:http://192.168.x.x:8080[]
 
-NOTE: Index page consist of a few links for variety qnty of columns. +
-      You may explore this links and set your own number of columns if you want :)
