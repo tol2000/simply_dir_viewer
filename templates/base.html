@@ -22,12 +22,10 @@
         </title>
     </head>
     <body>
-
-        <!-- Main block of any body in container -->
-        <div class="container-fluid">
-            {% block body %}
-            Base body
-            {% endblock %}
+        {% block body %}
+        Base body
+        {% endblock %}
+        <div class="container-fluid" style="padding-top: 10px">
             <p><a class="home_link" href="{{ url_for('index') }}">Home</a></p>
         </div>
 
