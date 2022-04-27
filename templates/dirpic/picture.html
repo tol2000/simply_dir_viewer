@@ -35,8 +35,12 @@ Image
 {% block after_body_contents %}
     <script>
         var pic = document.getElementById('picture')
+
         pic.addEventListener('click', function (event) {
             history.back()
+        })
+        pic.addEventListener('auxclick', function (event) {
+            pic_zoom()
         })
         
         function pic_zoom() {
