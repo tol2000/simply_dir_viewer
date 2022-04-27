@@ -12,8 +12,9 @@ Image
     <img class="{{image_class}}" id="picture" src="data:image/jpeg;base64,{{ img_data }}" width="" height="100%">
 
     <div class="container-fluid" style="padding-top: 10px">
-        <p><a href="{{ img_subdir_link }}">(up .. to picture's dir)</a> {{image_name.lower()}}</p>
-        <p><a href="{{ url_for(request.endpoint, **request.view_args)[:-1] + '?' + request.query_string.decode()}}&zoom=full">Zoom full size</a></p>
+        <p><a class="badge bg-primary rounded-pill text-decoration-none fs-7 p-2 me-3" href="javascript:pic_zoom();">Click to zoom</a>{{image_name.lower()}}</p>
+        {#<p><a href="{{ url_for(request.endpoint, **request.view_args)[:-1] + '?' + request.query_string.decode()}}&zoom=full">Zoom full size</a></p>#}
+        <p><a class="badge bg-primary fs-7 p-2 text-decoration-none mt-3" href="{{ img_subdir_link }}">(up .. to picture's dir)</a></p>
         <div>
             <table class="exif_table">
             {% for key, value in exif.items() %}
@@ -35,7 +36,10 @@ Image
     <script>
         var pic = document.getElementById('picture')
         pic.addEventListener('click', function (event) {
-            event.preventDefault()
+            history.back()
+        })
+        
+        function pic_zoom() {
             if (pic.style.maxHeight == '100vh' || !pic.style.maxHeight) {
                 pic.style.maxHeight = 'none'
                 pic.style.maxWidth = 'none'
@@ -44,6 +48,6 @@ Image
                 pic.style.maxWidth = '100%'
                 window.scrollTo({top:0, left:0, behavior:'instant'})
             }
-        })
+        }
     </script>
 {% endblock %}
