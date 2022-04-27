@@ -1,3 +1,7 @@
+body {
+    //color: var(--bs-gray-500);
+    //background-color: var(--bs-gray-900);
+}
 .home_link {
     font-weight: bold;
     padding-bottom: 10px;
