@@ -40,3 +40,12 @@ Directory: {{ dir_path }}
         {% endfor %}
     </div>
 {% endblock %}
+
+{% block __after_body_contents %}
+    {# trying to use vanilla js instead of jquery with bootstrap 5 (just try to learn) #}
+    <script>
+        document.querySelectorAll('.badge.bg-secondary.text-wrap').forEach(function(item) {
+            item.style.color = "cyan"
+        });
+    </script>
+{% endblock %}
