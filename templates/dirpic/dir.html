@@ -9,15 +9,15 @@ Directory: {{ dir_path }}
 
 {% block body %}
     <div class="container-fluid">
-        <h4 style="margin-top: 10px; margin-bottom: 10px;">Directory: {{ dir_path }}</h4>
+        <h4 class="my-3">Directory: {{ dir_path }}</h4>
         <a href="{{ root_dir_link }}" style="text-decoration: none;">
-            <p class="badge bg-primary text-wrap" style="font-size: 0.9em; padding: 7px;">
+            <p class="badge bg-primary text-wrap p-2 my-0 fs-7">
                 Root directory
             </p>
         </a>
         <br>
         <a href="{{ up_dir_link }}" style="text-decoration: none;">
-            <p class="badge bg-primary text-wrap" style="font-size: 0.9em; padding: 7px;">
+            <p class="badge bg-primary text-wrap p-2 my-4 fs-7">
                 .. Up
             </p>
         </a>
@@ -25,14 +25,14 @@ Directory: {{ dir_path }}
 
         {% for path, url in dirs_items: %}
             <a href="{{ url }}" style="text-decoration: none;">
-                <p class="badge bg-secondary text-wrap" style="font-size: 0.9em; padding: 7px; margin-right: 10px;">
+                <p class="badge bg-secondary text-wrap p-2 me-2 fs-7">
                     {{ path }}
                 </p>
             </a>
         {% endfor %}
     </div>
 
-    <div class="container-fluid" style="padding-top: 12px;">
+    <div class="container-fluid mt-2">
         {% for path, url, img_preview_data in files_items: %}
             <a href="{{ url }}" style="text-decoration: none;">
                 <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
