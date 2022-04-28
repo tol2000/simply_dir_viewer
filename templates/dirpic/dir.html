@@ -8,36 +8,44 @@ Directory: {{ dir_path }}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <h4 class="my-3">Directory: {{ dir_path }}</h4>
-        <a class="text-decoration-none" href="{{ root_dir_link }}">
-            <p class="badge bg-primary text-wrap p-2 my-0 fs-7">
-                Root directory
-            </p>
-        </a>
-        <br>
-        <a class="text-decoration-none" href="{{ up_dir_link }}">
-            <p class="badge bg-primary text-wrap p-2 my-4 fs-7">
-                .. Up
-            </p>
-        </a>
-        <br>
+    <div class="container-fluid row"">
+        <h4 class="mt-3">Directory: {{ dir_path }}</h4>
+        <div class="col-sm-2 m-0 pt-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="text-decoration-none" href="{{ root_dir_link }}">
+                        <p class="badge bg-primary text-wrap p-2 fs-7">
+                            Root directory
+                        </p>
+                    </a>
+                </div>
+                <div class="col-sm-12">
+                    <a class="text-decoration-none" href="{{ up_dir_link }}">
+                        <p class="badge bg-primary text-wrap p-2 fs-7">
+                            .. Up
+                        </p>
+                    </a>
+                </div>
 
-        {% for path, url in dirs_items: %}
-            <a class="text-decoration-none" href="{{ url }}">
-                <p class="badge bg-secondary text-wrap p-2 me-2 fs-7">
-                    {{ path }}
-                </p>
-            </a>
-        {% endfor %}
-    </div>
+                {% for path, url in dirs_items: %}
+                    <div class="col-sm-12">
+                        <a class="text-decoration-none" href="{{ url }}">
+                            <p class="badge bg-secondary text-wrap p-2 fs-7" style="word-break: break-all;">
+                                {{ path }}
+                            </p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
-    <div class="container-fluid mt-2">
-        {% for path, url, img_preview_data in files_items: %}
-            <a class="text-decoration-none" href="{{ url }}">
-                <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
-            </a>
-        {% endfor %}
+        <div class="col-sm-10 m-0 pt-3">
+            {% for path, url, img_preview_data in files_items: %}
+                <a class="text-decoration-none" href="{{ url }}">
+                    <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
+                </a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
