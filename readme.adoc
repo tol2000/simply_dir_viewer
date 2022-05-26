@@ -10,14 +10,15 @@ NOTE: This is my local learning project, so it is without any docker wraps and d
 
 === Select host
 
-  Select some host for your project (e.g. `192.168.x.x`)
+Select some host for your project (e.g. `192.168.x.x`)
 
-=== Install python 3 and it's pip
+=== Install python 3, it's pip and pipenv
 
 [source, bash]
 ----
 sudo dnf install python3
 sudo dnf install python3-pip
+sudo dnf install pipenv
 ----
 
 === Install the project to some dir you choose
@@ -31,7 +32,7 @@ mkdir photos_view
 cd photos_view
 mkdir public_files
 git clone git@github.com:tol2000/simply_dir_viewer.git .
-python -m pip install -r requirements.txt
+pipenv install
 ----
 
 === Public folder for photos
@@ -44,11 +45,10 @@ If you want, you may set another folder in environment variable `SIMPLY_DIR_VIEW
 
 [source, bash]
 ----
-python simply_dir_viewer.py
+pipenv run python simply_dir_viewer.py
 ----
 
 === View photos from any device
 
 Enjoy by view all your photos in `public_files` from any device by following link:
 link:http://192.168.x.x:8080[]
-

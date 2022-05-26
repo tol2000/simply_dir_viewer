@@ -1,4 +1,0 @@
-flask
-loguru
-pillow
-# flask_bootstrap
