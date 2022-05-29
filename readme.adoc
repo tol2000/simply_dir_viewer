@@ -4,7 +4,7 @@
 
 This simple flask project makes it eay to view photos from one your device to all other devices in the house
 
-NOTE: This is my local learning project, so it is without any docker wraps and debug mode is present, so it's just for local using (for a while:)
+NOTE: This is my local learning project, so it is with debug mode and just for local using (for a while:)
 
 == Installation
 
@@ -12,14 +12,9 @@ NOTE: This is my local learning project, so it is without any docker wraps and d
 
 Select some host for your project (e.g. `192.168.x.x`)
 
-=== Install python 3, it's pip and pipenv
+=== Install docker
 
-[source, bash]
-----
-sudo dnf install python3
-sudo dnf install python3-pip
-sudo dnf install pipenv
-----
+Install docker and docker-compose as says in official docker site
 
 === Install the project to some dir you choose
 
@@ -30,22 +25,37 @@ Create directory, clone the project and install needed libraries
 cd ~
 mkdir photos_view
 cd photos_view
-mkdir public_files
 git clone git@github.com:tol2000/simply_dir_viewer.git .
-pipenv install
+mkdir public_files
 ----
 
-=== Public folder for photos
+=== Set public folder for photos
 
 By default you will see all photos from `public_files` subdir of your project (you just created it above).
 
-If you want, you may set another folder in environment variable `SIMPLY_DIR_VIEWER_PUBLIC_FILES`
+If you want, you may set another folder. Just edit `docker-compose.yaml` and set appropriate volume mapping
+in service app (set your dir before ":")
+[source]
+----
+volumes:
+  - /your_dir_of_public_files:/public_files
+----
 
 === Run project
 
+
+.In project dir run
 [source, bash]
 ----
-pipenv run python simply_dir_viewer.py
+docker-compose up -d
+----
+
+=== Stop project
+
+.In project dir run
+[source, bash]
+----
+docker-compose down
 ----
 
 === View photos from any device

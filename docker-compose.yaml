@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    volumes:
+      - ./public_files:/public_files
+    ports:
+      - 8080:8080
+    command: /bin/sh /simply_dir_viewer/start.sh
