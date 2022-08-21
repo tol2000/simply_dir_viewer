@@ -53,10 +53,12 @@ def make_picture_url_for_subdir(picture_subdir: Path, picture_name: Path):
 
 @lru_cache(maxsize=IMAGES_LRU_CACHE_MAX_SIZE)
 def get_image_data_for_html(image_path: Path, preview_width=None):
-    exif = None
+    exif = {}
     try:
         im: Image = Image.open(image_path)
-        exif = exif_util.extract_exif_tags(im)
+        exif["Megapixels (size)"] = f"{(im.size[0]*im.size[1])/pow(10, 6):.1f} ({im.size[0]}x{im.size[1]})"
+        exif_loc = exif_util.extract_exif_tags(im)
+        exif.update(exif_loc)
 
         if preview_width:
             im.thumbnail(preview_width, Image.ANTIALIAS)
