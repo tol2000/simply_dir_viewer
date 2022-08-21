@@ -6,15 +6,11 @@ This simple flask project makes it eay to view photos from one your device to al
 
 NOTE: This is my local learning project, so it is with debug mode and just for local using (for a while:)
 
-== Installation
+== PreInstallation
 
 === Select host
 
 Select some host for your project (e.g. `192.168.x.x`)
-
-=== Install docker
-
-Install docker and docker-compose as says in official docker site
 
 === Install the project to some dir you choose
 
@@ -28,6 +24,12 @@ cd photos_view
 git clone git@github.com:tol2000/simply_dir_viewer.git .
 mkdir public_files
 ----
+
+== Install with docker (simpler for who knows docker)
+
+=== Install docker
+
+Install docker and docker-compose as says in official docker site
 
 === Set public folder for photos
 
@@ -43,7 +45,6 @@ volumes:
 
 === Run project
 
-
 .In project dir run
 [source, bash]
 ----
@@ -58,7 +59,53 @@ docker-compose up -d
 docker-compose down
 ----
 
-=== View photos from any device
+== Install without docker (using python)
+
+=== Install python 3, it's pip and pipenv
+
+[source, bash]
+----
+sudo dnf install python3
+sudo dnf install python3-pip
+sudo dnf install pipenv
+----
+
+=== Setting environment
+
+By default you will see all photos from `public_files` subdir of your project
+(you just created it PreInstallation). +
+If you want, you may set another folder in environment variable `SIMPLY_DIR_VIEWER_PUBLIC_FILES`
+(see relevant section "Environment variables" in "Project settings")
+
+=== Run project
+
+[source, bash]
+----
+pipenv run python simply_dir_viewer.py
+----
+
+== View photos from any device
 
 Enjoy by view all your photos in `public_files` from any device by following link:
 link:http://192.168.x.x:8080[]
+
+== Project settings
+
+You can manage some project settings like below
+
+=== Environment variables
+
+In linux you may set it through `export` command and in Windows you can use `set` command.
+
+* SIMPLY_DIR_VIEWER_PUBLIC_FILES -
+  Root folder to display your photos and other supported files
+* SIMPLY_DIR_VIEWER_SUFFIXES_TO_DISPLAY -
+  Comma separated list of file extensions to display in project (with leading dot). +
+  Default: `.jpg, .jpeg, .png`
+
+=== Other notes
+
+==== .HEIF (.HEIC)
+
+* If you want to see .HEIF (.HEIC) files from apple, on linux you may install the package
+  `qt-heif-image-plugin`
