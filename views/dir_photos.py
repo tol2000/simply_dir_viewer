@@ -51,7 +51,7 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
             im.thumbnail(preview_width, Image.ANTIALIAS)
 
         data = io.BytesIO()
-        im.save(data, "JPEG")
+        im.save(data, im.format)
         encoded_img_data = base64.b64encode(data.getvalue()).decode('utf-8')
     except Exception:
         encoded_img_data = None
