@@ -23,6 +23,12 @@ PATH_ENV = os.getenv('SIMPLY_DIR_VIEWER_PUBLIC_FILES')
 PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
     else (Path(sys.argv[0]).resolve().absolute().parent / Path('public_files')).resolve().absolute()
 
+# suffixes to display
+SUFFIXES_TO_DISPLAY = [
+    x.strip().lower() for x in
+    ','.split(os.getenv('SIMPLY_DIR_VIEWER_SUFFIXES_TO_DISPLAY', default='.jpg, .jpeg, .png'))
+]
+
 
 def make_url_for_subdir(path_for_url):
     query_args = {
@@ -105,7 +111,7 @@ def show_dir():
         if path_obj.is_dir():
             url = make_url_for_subdir(path_for_url)
             dirs_items.append((path_for_display, url))
-        elif path_obj.suffix.lower() in ['.jpg', '.jpeg', '.png']:
+        elif path_obj.suffix.lower() in SUFFIXES_TO_DISPLAY:
             url = make_picture_url_for_subdir(Path(subdir), Path(path_for_display))
             preview_data, exif = get_image_data_for_html(path_obj, (PREVIEW_WIDTH, PREVIEW_WIDTH))
             files_items.append((path_for_display, url, preview_data))
