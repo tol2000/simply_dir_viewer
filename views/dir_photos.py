@@ -2,6 +2,8 @@ import sys
 from functools import lru_cache
 from flask import request, render_template, Blueprint, url_for
 from PIL import Image
+from pillow_heif import register_heif_opener
+register_heif_opener()
 import base64
 import io
 import os
@@ -26,7 +28,10 @@ PUBLIC_FILES = Path(PATH_ENV) if PATH_ENV \
 # suffixes to display
 SUFFIXES_TO_DISPLAY = [
     x.strip().lower() for x in
-    ','.split(os.getenv('SIMPLY_DIR_VIEWER_SUFFIXES_TO_DISPLAY', default='.jpg, .jpeg, .png'))
+    os.getenv(
+        'SIMPLY_DIR_VIEWER_SUFFIXES_TO_DISPLAY',
+        default='.jpg, .jpeg, .png, .heif, .heic'
+    ).split(',')
 ]
 
 
@@ -57,7 +62,7 @@ def get_image_data_for_html(image_path: Path, preview_width=None):
             im.thumbnail(preview_width, Image.ANTIALIAS)
 
         data = io.BytesIO()
-        im.save(data, im.format)
+        im.save(data, "JPEG")
         encoded_img_data = base64.b64encode(data.getvalue()).decode('utf-8')
     except Exception:
         encoded_img_data = None

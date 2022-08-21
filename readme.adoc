@@ -101,7 +101,7 @@ In linux you may set it through `export` command and in Windows you can use `set
   Root folder to display your photos and other supported files
 * SIMPLY_DIR_VIEWER_SUFFIXES_TO_DISPLAY -
   Comma separated list of file extensions to display in project (with leading dot). +
-  Default: `.jpg, .jpeg, .png`
+  Default: `.jpg, .jpeg, .png, .heif, .heic`
 
 === Other notes
 
