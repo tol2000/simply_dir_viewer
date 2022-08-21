@@ -47,7 +47,7 @@ Directory: {{ dir_path }}
         <div class="col-sm-10 m-0 pt-3">
             {% for path, url, img_preview_data in files_items: %}
                 <a class="text-decoration-none" href="{{ url }}">
-                    <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error">
+                    <img src="data:image/jpeg;base64,{{ img_preview_data }}" class="img-fluid img-thumbnail" alt="Display error" title="{{ path }}">
                 </a>
             {% endfor %}
         </div>
