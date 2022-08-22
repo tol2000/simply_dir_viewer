@@ -25,27 +25,30 @@ git clone git@github.com:tol2000/simply_dir_viewer.git .
 mkdir public_files
 ----
 
+=== Set public folder for display
+
+By default you will see all photos from `public_files` subdir of your project
+(you just created it above).
+If you want, you may set another folder, see `SIMPLY_DIR_VIEWER_PUBLIC_FILES`
+environment variable in "Project settings" chapter.
+
 == Install with docker (simpler for who knows docker)
 
 === Install docker
 
 Install docker and docker-compose as says in official docker site
 
-=== Set public folder for photos
+=== Build project
 
-By default you will see all photos from `public_files` subdir of your project (you just created it above).
-
-If you want, you may set another folder. Just edit `docker-compose.yaml` and set appropriate volume mapping
-in service app (set your dir before ":")
-[source]
+.In project dir run the code below and wait for the container build
+[source, bash]
 ----
-volumes:
-  - /your_dir_of_public_files:/public_files
+docker-compose build
 ----
 
 === Run project
 
-.In project dir run
+.In project dir run the code below
 [source, bash]
 ----
 docker-compose up -d
@@ -53,7 +56,7 @@ docker-compose up -d
 
 === Stop project
 
-.In project dir run
+.In project dir run the code below
 [source, bash]
 ----
 docker-compose down
@@ -70,13 +73,6 @@ sudo dnf install python3-pip
 sudo dnf install pipenv
 ----
 
-=== Setting environment
-
-By default you will see all photos from `public_files` subdir of your project
-(you just created it PreInstallation). +
-If you want, you may set another folder in environment variable `SIMPLY_DIR_VIEWER_PUBLIC_FILES`
-(see relevant section "Environment variables" in "Project settings")
-
 === Run project
 
 [source, bash]
@@ -86,7 +82,8 @@ pipenv run python simply_dir_viewer.py
 
 == View photos from any device
 
-Enjoy by view all your photos in `public_files` from any device by following link:
+Enjoy by view all your photos in `./public_files` (or any other folder you set)
+from any device by following the link:
 link:http://192.168.x.x:8080[]
 
 == Project settings
@@ -105,7 +102,7 @@ In linux you may set it through `export` command and in Windows you can use `set
 
 === Other notes
 
-==== .HEIF (.HEIC)
+==== .HEIF (.HEIC) support
 
 * If you want to see .HEIF (.HEIC) files from apple, on linux you may install the package
   `qt-heif-image-plugin`
