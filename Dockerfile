@@ -4,7 +4,7 @@ FROM python:3.10.4-alpine
 # set work directory
 WORKDIR /simply_dir_viewer
 
-# set environment variables
+# set build-time environment variables
 ENV SIMPLY_DIR_VIEWER_PUBLIC_FILES /public_files
 
 # install dependencies

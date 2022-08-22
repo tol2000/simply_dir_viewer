@@ -4,7 +4,7 @@ services:
       dockerfile: ./Dockerfile
       context: .
     volumes:
-      - ./public_files:/public_files
+      - ${SIMPLY_DIR_VIEWER_PUBLIC_FILES:-./public-files}:/public_files
     ports:
       - 8080:8080
     command: /bin/sh /simply_dir_viewer/start.sh
