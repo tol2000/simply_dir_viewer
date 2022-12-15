@@ -6,6 +6,9 @@ This simple flask project makes it eay to view photos from one your device to al
 
 NOTE: This is my local learning project, so it is with debug mode and just for local using (for a while:)
 
+NOTE: I described the installation process for my OS (Fedora), you may easily
+      adopt it for you OS without any problems, I hope :)
+
 == PreInstallation
 
 === Select host
@@ -14,7 +17,7 @@ Select some host for your project (e.g. `192.168.x.x`)
 
 === Install the project to some dir you choose
 
-Create directory, clone the project and install needed libraries
+Create directory and clone the project
 
 [source, bash]
 ----
@@ -70,7 +73,7 @@ docker-compose down
 ----
 sudo dnf install python3
 sudo dnf install python3-pip
-sudo dnf install pipenv
+pip install pipenv
 ----
 
 === Run project
